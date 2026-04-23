@@ -1,25 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt-PT" class="scroll-smooth">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCALE X | Estruturação Estratégica & Growth</title>
+    <title>SCALE X | Apresentação de Vendas</title>
     
-    <!-- FAVICON (X Laranja) -->
+    <!-- FAVICON -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M20 20 L80 80 M80 20 L20 80%22 stroke=%22%23F97316%22 stroke-width=%2220%22 stroke-linecap=%22round%22/></svg>">
 
-    <!-- Tailwind CSS -->
+    <!-- LIBS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Chart.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+    <!-- CONFIG -->
     <script>
         tailwind.config = {
             theme: {
@@ -30,7 +25,7 @@
                             black: '#050505',
                             darkGray: '#121212',
                             card: '#1A1A1A',
-                            border: '#333333'
+                            border: '#2A2A2A'
                         }
                     },
                     fontFamily: {
@@ -38,13 +33,13 @@
                         display: ['Space Grotesk', 'sans-serif'],
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee': 'marquee 25s linear infinite',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
                         }
                     }
                 }
@@ -53,36 +48,41 @@
     </script>
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            color: #E5E5E5;
-            overflow-x: hidden;
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #050505; 
+            color: #E5E5E5; 
+            overflow-x: hidden; 
         }
-        h1, h2, h3, h4, .font-display {
-            font-family: 'Space Grotesk', sans-serif;
-        }
+        h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
         
-        /* Glassmorphism Refined */
+        ::selection {
+            background-color: #F97316;
+            color: #000;
+        }
+
+        /* Fundo Dinâmico Grade */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+        }
+
+        /* Glassmorphism Premium */
         .glass-card {
-            background: rgba(30, 30, 30, 0.4);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .glass-card:hover {
-            border-color: #F97316;
-            transform: translateY(-5px);
-            background: rgba(30, 30, 30, 0.7);
-            box-shadow: 0 10px 30px -10px rgba(249, 115, 22, 0.15);
+            border-color: rgba(249, 115, 22, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(249, 115, 22, 0.15);
+            transform: translateY(-4px);
         }
 
-        .highlight-text {
-            color: #F97316;
-            text-shadow: 0 0 35px rgba(249, 115, 22, 0.5);
-        }
-
+        /* Timeline Connector */
         .timeline-line {
             position: absolute;
             left: 24px;
@@ -94,487 +94,783 @@
         }
         
         .ioe-connector {
-            height: 2px;
-            background: linear-gradient(90deg, #F97316 0%, #333 100%);
-            width: 100px;
+            position: relative;
         }
+        .ioe-connector::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -2rem;
+            width: 2rem;
+            height: 2px;
+            background: #F97316;
+            opacity: 0.3;
+        }
+        @media (max-width: 768px) { .ioe-connector::after { display: none; } }
 
-        /* Document Mockup Animation */
-        .doc-mockup {
-            box-shadow: -20px 20px 60px rgba(0,0,0,0.7);
+        /* Botão Subtil (Ghost) */
+        .btn-ghost {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-ghost::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: skewX(-20deg);
             transition: all 0.5s ease;
         }
-        .doc-mockup:hover {
-            transform: translateY(-10px) rotate(2deg) scale(1.02);
-            box-shadow: -25px 25px 80px rgba(249, 115, 22, 0.1);
-        }
+        .btn-ghost:hover::after { left: 150%; }
 
-        /* Reveal on Scroll Animations */
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #F97316; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #EA580C; }
+
+        /* Reveal on Scroll Animations - Modificado para ser bulletproof */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* Previne o ecrã branco se o JS estiver desligado */
+        noscript .reveal { opacity: 1; transform: none; }
 
-        /* Button Glow */
-        .btn-glow {
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-glow::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
-            transform: scale(0);
-            opacity: 0;
-            transition: transform 0.6s, opacity 0.6s;
-        }
-        .btn-glow:hover::after {
-            transform: scale(1);
-            opacity: 1;
-            transition: 0s;
-        }
+        /* Estrelas Interativas */
+        .star-svg { transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     </style>
 </head>
-<body class="antialiased selection:bg-brand-orange selection:text-white">
+<body class="antialiased bg-grid">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-brand-black/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex items-center gap-2 group cursor-pointer">
-                    <div class="w-2 h-8 bg-brand-orange skew-x-12 transition-transform group-hover:skew-x-0"></div>
-                    <span class="text-xl font-display font-bold tracking-tight text-white group-hover:text-brand-orange transition-colors">SCALE <span class="text-brand-orange group-hover:text-white transition-colors">X</span></span>
-                </div>
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#fase1" class="text-sm font-medium text-white hover:text-brand-orange transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-brand-orange after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">1. Inteligência</a>
-                    <a href="#fase2" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">2. Operação</a>
-                    <a href="#fase3" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">3. Escala</a>
-                    <a href="#contato" class="px-6 py-2 border border-brand-orange text-brand-orange text-sm font-bold rounded hover:bg-brand-orange hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(249,115,22,0.2)] hover:shadow-[0_0_25px_rgba(249,115,22,0.6)]">
-                        Agendar Sessão
-                    </a>
-                </div>
-            </div>
+    <!-- Progress Bar Top -->
+    <div class="fixed top-0 left-0 right-0 h-1 bg-brand-orange z-[60] origin-left" id="scroll-progress" style="transform: scaleX(0);"></div>
+
+    <!-- HEADER -->
+    <header class="fixed top-0 w-full z-50 bg-brand-black/80 backdrop-blur-xl border-b border-white/5 h-20 flex items-center justify-between px-6 md:px-12 transition-all">
+        <div class="flex items-center gap-2">
+            <div class="w-3 h-8 bg-brand-orange skew-x-12 shadow-[0_0_10px_rgba(249,115,22,0.5)]"></div>
+            <span class="text-xl font-display font-bold tracking-tight text-white">SCALE <span class="text-brand-orange">X</span></span>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-24 overflow-hidden min-h-[90vh] flex items-center justify-center">
-        <!-- Background Elements -->
-        <div class="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-brand-orange/10 rounded-full blur-[150px] -z-10 animate-pulse-slow"></div>
-        <div class="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[120px] -z-10"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
-            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-xs font-mono text-gray-300 mb-8 tracking-widest uppercase hover:bg-white/10 transition-colors cursor-default backdrop-blur-sm">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-orange"></span>
-                </span>
-                Metodologia Proprietária I.O.E.
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white leading-[1.1] mb-8 tracking-tight">
-                Diagnosticar. Corrigir. <br>
-                <span class="highlight-text relative inline-block">
-                    Escalar.
-                    <svg class="absolute w-full h-3 -bottom-1 left-0 text-brand-orange opacity-60" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.00025 6.99997C58.5002 6.99997 122.5 -2.00004 197.5 4.49995" stroke="currentColor" stroke-width="3"/></svg>
-                </span>
-            </h1>
-            
-            <p class="text-xl text-gray-400 font-light leading-relaxed max-w-3xl mx-auto mb-12">
-                90% das empresas falham porque tentam escalar (Fase 3) problemas operacionais (Fase 2) sem ter um plano estratégico (Fase 1). 
-                <strong class="text-white">Nós vendemos o Mapa antes de vender a Viagem.</strong>
-            </p>
-
-            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <a href="#avaliacao" class="btn-glow px-10 py-5 bg-brand-orange text-white font-bold rounded-lg hover:bg-orange-600 transition-all flex items-center justify-center gap-3 shadow-[0_10px_40px_-10px_rgba(249,115,22,0.5)] transform hover:-translate-y-1">
-                    Começar por Avaliação Gratuita <i class="fa-solid fa-arrow-down animate-bounce"></i>
-                </a>
-            </div>
+        <div class="hidden md:flex gap-4">
+            <span class="text-[10px] font-mono text-brand-orange uppercase tracking-widest border border-brand-orange/20 px-4 py-2 rounded-full bg-brand-orange/10 flex items-center gap-2 shadow-[0_0_15px_rgba(249,115,22,0.2)]">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse"></span> Documento Confidencial
+            </span>
         </div>
-    </section>
+    </header>
 
-    <!-- SESSÃO DE AVALIAÇÃO GRATUITA -->
-    <section id="avaliacao" class="py-20 bg-brand-darkGray border-y border-white/5 relative z-20">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2 reveal">
-                    <span class="text-brand-orange font-bold text-xs uppercase tracking-widest mb-3 block">Primeiro Passo</span>
-                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">
-                        Não sabe por onde começar?
-                    </h2>
-                    <p class="text-gray-400 leading-relaxed mb-6">
-                        Antes de qualquer contrato, nós oferecemos uma <strong>Sessão de Diagnóstico Gratuita</strong>. 
-                    </p>
-                    <p class="text-gray-400 leading-relaxed mb-8">
-                        Nesta call estratégica, vamos mergulhar no seu negócio para entender suas travas atuais e eu te direi exatamente qual o melhor caminho para iniciar sua jornada de escala, seja através do nosso Blueprint ou de correções pontuais.
-                    </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center gap-3 text-sm text-gray-300"><i class="fa-solid fa-circle-check text-brand-orange"></i> Análise de momento atual</li>
-                        <li class="flex items-center gap-3 text-sm text-gray-300"><i class="fa-solid fa-circle-check text-brand-orange"></i> Identificação de gargalos óbvios</li>
-                        <li class="flex items-center gap-3 text-sm text-gray-300"><i class="fa-solid fa-circle-check text-brand-orange"></i> Direcionamento sem custo</li>
-                    </ul>
-                    <a href="#contato" class="text-white border-b border-brand-orange hover:text-brand-orange transition-colors pb-1">Agendar minha sessão agora &rarr;</a>
-                </div>
-                <div class="md:w-1/2 reveal">
-                    <div class="relative bg-brand-black p-8 rounded-2xl border border-white/10 shadow-2xl">
-                        <div class="absolute -top-4 -right-4 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded">100% Gratuito</div>
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-brand-orange/20 flex items-center justify-center text-brand-orange">
-                                <i class="fa-solid fa-video text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-bold">Call de Diagnóstico</h4>
-                                <p class="text-xs text-gray-500">30 a 45 minutos via Google Meet</p>
-                            </div>
-                        </div>
-                        <p class="text-sm text-gray-400 italic mb-6">
-                            "O objetivo não é te empurrar um produto, é entender se nós somos a solução certa para o seu problema atual."
-                        </p>
-                        <div class="flex items-center gap-2 text-xs text-gray-500">
-                            <img src="https://i.imgur.com/pvfgiKp.png" alt="Consultor" class="w-8 h-8 rounded-full border border-gray-600 grayscale object-cover">
-                            <span>Com Head de Estratégia Scale X</span>
-                        </div>
+    <main class="flex flex-col items-center justify-center w-full overflow-hidden">
+
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 1: A TESE (HERO) -->
+        <!-- ===================================================================== -->
+        <section class="relative w-full min-h-screen flex flex-col items-center justify-center pt-24 px-6 border-b border-white/5">
+            <!-- Background Blur -->
+            <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-brand-orange/10 rounded-full blur-[150px] -z-10 animate-pulse-slow"></div>
+            <div class="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[120px] -z-10"></div>
+            
+            <div class="max-w-5xl mx-auto flex flex-col items-center text-center w-full reveal">
+                <div class="mb-8">
+                    <div class="w-16 h-16 border-2 border-brand-orange/50 rounded-2xl flex items-center justify-center bg-brand-orange/10 shadow-[0_0_25px_rgba(249,115,22,0.2)]">
+                        <i class="fa-solid fa-industry text-brand-orange text-2xl"></i>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- THE METHODOLOGY (I.O.E. Overview) -->
-    <section class="py-24 bg-brand-card border-b border-white/5 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl font-bold text-white mb-2">Nossa Metodologia</h2>
-                <p class="text-gray-400 text-sm">O caminho que percorreremos após o diagnóstico.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-12 relative items-center">
                 
-                <!-- Card I -->
-                <div class="text-center group cursor-pointer hover:-translate-y-2 transition-transform duration-300 reveal">
-                    <div class="relative w-24 h-24 mx-auto mb-6">
-                        <div class="absolute inset-0 bg-brand-orange blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                        <div class="relative w-full h-full bg-brand-black border-2 border-brand-orange rounded-full flex items-center justify-center text-4xl font-bold text-white shadow-2xl">
-                            I
+                <div class="text-center mb-8 font-normal">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] mb-4 text-white whitespace-nowrap">
+                        Toda empresa é uma Máquina.
+                    </h1>
+                    <p class="text-2xl md:text-4xl lg:text-5xl font-display font-bold leading-tight">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-300 via-brand-orange to-brand-orange">Não de likes, mas de Receita.</span>
+                    </p>
+                </div>
+
+                <div class="w-full max-w-3xl mt-12 reveal">
+                    <div class="glass-card rounded-3xl p-8 md:p-10 text-center border border-white/5 shadow-2xl">
+                        <p class="text-lg md:text-xl text-white/90 leading-relaxed mb-4">
+                            <span class="font-bold text-brand-orange">Seu produto final não é o que você vende.</span> É a receita que você gera.
+                        </p>
+                        <p class="text-base md:text-lg text-gray-400 leading-relaxed">
+                            Empresas com produtos tecnicamente inferiores vencem mercados inteiros porque dominam melhor o seu sistema de aquisição e vendas.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="mt-16 animate-bounce text-brand-orange opacity-60">
+                    <i class="fa-solid fa-chevron-down text-3xl"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 2: O PROBLEMA (OTIMIZAÇÃO LOCAL VS GLOBAL) -->
+        <!-- ===================================================================== -->
+        <section class="relative w-full py-24 px-6 bg-[#0a0a0a] border-b border-white/5">
+            <div class="w-full max-w-6xl mx-auto flex flex-col items-center space-y-16">
+                
+                <div class="text-center max-w-4xl space-y-6 reveal">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full border border-brand-orange/30 font-bold text-sm shadow-[0_0_15px_rgba(249,115,22,0.2)] bg-brand-orange/10 text-brand-orange">
+                        Atenção: A Maior Causa de Estagnação
+                    </div>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold leading-tight text-white text-balance">
+                        A Armadilha que trava <br>
+                        <em class="not-italic text-brand-orange">Qualquer Máquina de Receita</em>.
+                    </h2>
+                </div>
+
+                <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 relative">
+                    
+                    <!-- Otimização Local (Caos) -->
+                    <div class="glass-card rounded-3xl p-8 flex flex-col items-center space-y-6 border border-transparent hover:border-red-500/50 reveal group transition-all">
+                        <h3 class="text-2xl font-bold text-gray-400 group-hover:text-red-400 transition-colors text-center">A Receita Travada</h3>
+                        <p class="text-sm text-center text-gray-500 group-hover:text-red-300/80 transition-colors font-medium">Otimização Local (O cenário comum)</p>
+                        
+                        <div class="w-full flex items-center justify-center h-48 relative">
+                            <div class="absolute text-gray-600 transform -translate-x-16 -translate-y-8 rotate-45 flex flex-col items-center"><i class="fa-solid fa-arrow-right w-8 h-8 text-2xl"></i><span class="text-[10px] mt-1 uppercase">Tráfego</span></div>
+                            <div class="absolute text-gray-600 transform translate-x-12 -translate-y-8 -rotate-12 flex flex-col items-center"><i class="fa-solid fa-arrow-right w-8 h-8 text-2xl"></i><span class="text-[10px] mt-1 uppercase">Site</span></div>
+                            <div class="absolute text-gray-600 transform -translate-x-8 translate-y-12 -rotate-90 flex flex-col items-center"><i class="fa-solid fa-arrow-right w-8 h-8 text-2xl"></i><span class="text-[10px] mt-1 uppercase">Comercial</span></div>
+                            <div class="absolute text-gray-600 transform translate-x-16 translate-y-8 rotate-180 flex flex-col items-center"><i class="fa-solid fa-arrow-right w-8 h-8 text-2xl"></i><span class="text-[10px] mt-1 uppercase">Produto</span></div>
+                            
+                            <div class="w-16 h-16 rounded-full border-2 border-gray-700 group-hover:border-red-500 flex items-center justify-center bg-white/5 group-hover:bg-red-500/10 transition-all z-10 group-hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                                <i class="fa-solid fa-xmark text-gray-600 group-hover:text-red-500 text-2xl transition-colors"></i>
+                            </div>
+                        </div>
+                        
+                        <p class="text-center text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">
+                            A agência melhora o anúncio, mas a venda não sobe. A empresa faz "várias coisas certas", mas de forma isolada. Esforço desconexo gera estagnação.
+                        </p>
+                    </div>
+
+                    <!-- Otimização Global (Scale X) -->
+                    <div class="glass-card rounded-3xl p-8 flex flex-col items-center space-y-6 border border-transparent hover:border-brand-orange/50 group hover:shadow-[0_0_30px_rgba(249,115,22,0.15)] transition-all reveal delay-100">
+                        <h3 class="text-2xl font-bold text-gray-400 group-hover:text-white transition-colors text-center">A Receita Destravada</h3>
+                        <p class="text-sm text-center text-gray-500 group-hover:text-brand-orange transition-colors font-medium">Otimização Global (Metodologia I.O.S.)</p>
+                        
+                        <div class="w-full flex items-center justify-center h-48 gap-2 md:gap-6">
+                            <div class="flex flex-col items-center ioe-connector"><div class="w-12 h-12 rounded-xl bg-brand-darkGray border border-white/10 flex items-center justify-center"><i class="fa-solid fa-magnet text-gray-600 group-hover:text-white transition-colors"></i></div><span class="text-[10px] text-gray-600 group-hover:text-gray-400 transition-colors mt-2 uppercase tracking-wide">Tráfego</span></div>
+                            <div class="flex flex-col items-center ioe-connector"><div class="w-12 h-12 rounded-xl bg-brand-darkGray border border-white/10 flex items-center justify-center"><i class="fa-solid fa-arrow-pointer text-gray-600 group-hover:text-white transition-colors"></i></div><span class="text-[10px] text-gray-600 group-hover:text-gray-400 transition-colors mt-2 uppercase tracking-wide">Engajar</span></div>
+                            <div class="flex flex-col items-center ioe-connector"><div class="w-12 h-12 rounded-xl bg-brand-darkGray border border-white/10 group-hover:bg-brand-orange group-hover:border-brand-orange transition-all flex items-center justify-center group-hover:shadow-[0_0_15px_rgba(249,115,22,0.5)]"><i class="fa-solid fa-dollar-sign text-gray-600 group-hover:text-black font-bold transition-colors"></i></div><span class="text-[10px] text-gray-600 group-hover:text-brand-orange transition-colors font-bold mt-2 uppercase tracking-wide">Vendas</span></div>
+                            <div class="flex flex-col items-center"><div class="w-12 h-12 rounded-xl bg-brand-darkGray border border-white/10 flex items-center justify-center"><i class="fa-solid fa-arrows-rotate text-gray-600 group-hover:text-white transition-colors"></i></div><span class="text-[10px] text-gray-600 group-hover:text-gray-400 transition-colors mt-2 uppercase tracking-wide">Retenção</span></div>
+                        </div>
+
+                        <p class="text-center text-gray-500 group-hover:text-gray-300 transition-colors text-sm leading-relaxed">
+                            O sistema I.O.S. alinha todos os esforços em um fluxo único. O foco não é melhorar partes, é acelerar o lucro financeiro final.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full max-w-4xl glass-card rounded-2xl p-6 text-center reveal">
+                    <p class="text-base md:text-lg text-white/90 leading-relaxed">
+                        <span class="font-bold text-brand-orange">Execução, sem a direção correta, é apenas velocidade no caminho errado.</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 3: AS 8 TRAVAS (O DIAGNÓSTICO) -->
+        <!-- ===================================================================== -->
+        <section class="relative w-full py-24 px-6 bg-brand-surface2 border-b border-white/5">
+            <div class="w-full max-w-7xl mx-auto flex flex-col items-center">
+                
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4">
+                        As <span class="text-brand-orange">8 Travas</span> que limitam sua receita.
+                    </h2>
+                    <p class="text-lg text-gray-400">Todo negócio possui gargalos. Nosso trabalho é identificar cirurgicamente qual destas travas está sangrando seu caixa hoje.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+                    
+                    <div class="glass-card p-6 rounded-2xl border-t-2 border-transparent hover:border-brand-orange/50 transition-all duration-300 reveal group">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fa-solid fa-eye-slash text-3xl text-gray-600 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-gray-600 group-hover:text-brand-orange/50 transition-colors font-mono font-bold text-xl">00</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-300 group-hover:text-brand-orange transition-colors mb-2 font-mono">Cegueira (Dados)</h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors font-medium mb-1">Falta de visibilidade.</p>
+                        <p class="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">A empresa opera no escuro. Ninguém sabe o CAC real, o ROAS ou de qual campanha vêm os melhores clientes.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-t-2 border-transparent hover:border-brand-orange/50 transition-all duration-300 reveal group" data-aos-delay="100">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fa-solid fa-user-minus text-3xl text-gray-600 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-gray-600 group-hover:text-brand-orange/50 transition-colors font-mono font-bold text-xl">01</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-300 group-hover:text-brand-orange transition-colors mb-2 font-mono">Retenção (Churn)</h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors font-medium mb-1">Quem fecha, não fica.</p>
+                        <p class="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">Alta taxa de Churn. Não há recompra ou indicação. A empresa recomeça do zero todo mês.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-t-2 border-transparent hover:border-brand-orange/50 transition-all duration-300 reveal group" data-aos-delay="200">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fa-solid fa-file-circle-xmark text-3xl text-gray-600 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-gray-600 group-hover:text-brand-orange/50 transition-colors font-mono font-bold text-xl">02</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-300 group-hover:text-brand-orange transition-colors mb-2 font-mono">Decisão (Venda)</h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors font-medium mb-1">Quem aparece, não fecha.</p>
+                        <p class="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">O lead é bom, chega ao fim do processo comercial, pede proposta, mas não paga. Trava no script ou oferta.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-t-2 border-transparent hover:border-brand-orange/50 transition-all duration-300 reveal group" data-aos-delay="300">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fa-regular fa-calendar-xmark text-3xl text-gray-600 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-gray-600 group-hover:text-brand-orange/50 transition-colors font-mono font-bold text-xl">03</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-300 group-hover:text-brand-orange transition-colors mb-2 font-mono">Compromisso</h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors font-medium mb-1">Quem serve, some.</p>
+                        <p class="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">O lead agenda reunião mas falta. Abandona o checkout. Falta alinhamento e percepção de urgência.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-t-2 border-transparent hover:border-brand-orange/50 transition-all duration-300 reveal group">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fa-solid fa-filter-circle-xmark text-3xl text-gray-600 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-gray-600 group-hover:text-brand-orange/50 transition-colors font-mono font-bold text-xl">04</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-300 group-hover:text-brand-orange transition-colors mb-2 font-mono">Qualificação</h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors font-medium mb-1">Quem age, não serve.</p>
+                        <p class="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">Marketing traz volume, mas o time de vendas perde tempo com curiosos sem perfil ou capacidade de compra.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-t-2 border-transparent hover:border-brand-orange/50 transition-all duration-300 reveal group" data-aos-delay="100">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fa-solid fa-arrow-pointer text-3xl text-gray-600 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-gray-600 group-hover:text-brand-orange/50 transition-colors font-mono font-bold text-xl">05</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-300 group-hover:text-brand-orange transition-colors mb-2 font-mono">Interesse</h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors font-medium mb-1">Poucos dão o 1º passo.</p>
+                        <p class="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">As pessoas clicam no anúncio, entram no site, mas não preenchem o formulário. O problema está na página (CRO).</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-t-2 border-transparent hover:border-brand-orange/50 transition-all duration-300 reveal group" data-aos-delay="200">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fa-regular fa-eye text-3xl text-gray-600 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-gray-600 group-hover:text-brand-orange/50 transition-colors font-mono font-bold text-xl">06</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-300 group-hover:text-brand-orange transition-colors mb-2 font-mono">Atenção</h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors font-medium mb-1">Quem vê, não se importa.</p>
+                        <p class="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">Exposição comprada, mas ignorada. Criativos fracos, copys genéricas que não geram engajamento.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-t-2 border-transparent hover:border-brand-orange/50 transition-all duration-300 reveal group" data-aos-delay="300">
+                        <div class="flex justify-between items-start mb-6">
+                            <i class="fa-solid fa-volume-xmark text-3xl text-gray-600 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-gray-600 group-hover:text-brand-orange/50 transition-colors font-mono font-bold text-xl">07</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-300 group-hover:text-brand-orange transition-colors mb-2 font-mono">Exposição</h3>
+                        <p class="text-gray-400 group-hover:text-white transition-colors font-medium mb-1">Ninguém vê.</p>
+                        <p class="text-gray-500 group-hover:text-gray-400 transition-colors text-sm leading-relaxed">A marca simplesmente não aparece para o público certo por erro grave na gestão de tráfego pago.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 4: A METODOLOGIA (I.O.S) -->
+        <!-- ===================================================================== -->
+        <section class="py-24 bg-[#0a0a0a] border-b border-white/5 w-full">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-2"> Nossa Metodologia</h2>
+                    <p class="text-gray-400">O caminho lógico que percorremos após o diagnóstico.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-12 relative items-center reveal">
+                    <!-- I -->
+                    <div class="text-center group cursor-pointer">
+                        <div class="relative w-24 h-24 mx-auto mb-6">
+                            <div class="absolute inset-0 bg-brand-orange blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                            <div class="relative w-full h-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange rounded-full flex items-center justify-center text-4xl font-display font-bold text-gray-500 group-hover:text-white transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+                                I
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 transition-colors">Intelligence</h3>
+                        <p class="text-sm text-gray-400">Diagnóstico profundo e criação do Plano de Ação Estratégico (Blueprint).</p>
+                    </div>
+
+                    <!-- Connectors -->
+                    <div class="hidden md:block absolute left-[28%] top-[48px] ioe-connector opacity-30"></div>
+                    <div class="hidden md:block absolute right-[28%] top-[48px] ioe-connector opacity-30"></div>
+
+                    <!-- O -->
+                    <div class="text-center group cursor-pointer">
+                        <div class="relative w-24 h-24 mx-auto mb-6">
+                            <div class="absolute inset-0 bg-brand-orange blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                            <div class="relative w-full h-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange rounded-full flex items-center justify-center text-4xl font-display font-bold text-gray-500 group-hover:text-white transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+                                O
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 transition-colors">Operation</h3>
+                        <p class="text-sm text-gray-400">Execução do plano. Correção de gargalos e setup de infraestrutura de vendas.</p>
+                    </div>
+
+                    <!-- S -->
+                    <div class="text-center group cursor-pointer">
+                        <div class="relative w-24 h-24 mx-auto mb-6">
+                            <div class="absolute inset-0 bg-brand-orange blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                            <div class="relative w-full h-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange rounded-full flex items-center justify-center text-4xl font-display font-bold text-gray-500 group-hover:text-white transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+                                S
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 transition-colors">Scale</h3>
+                        <p class="text-sm text-gray-400">Advisory de Growth, acompanhamento estratégico e otimização contínua de ROI.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 5: O ECOSSISTEMA (AUTORIDADE DA EQUIPE) -->
+        <!-- ===================================================================== -->
+        <section class="py-24 bg-brand-surface2 border-b border-white/5 w-full">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-5xl mx-auto space-y-4 mb-16 reveal">
+                    <span class="text-brand-orange font-bold text-xs uppercase tracking-widest block">Nosso Ecossistema</span>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold leading-tight text-white">
+                        Não contratamos "Mãos". <br class="md:hidden"><span class="text-brand-orange">Instalamos Cérebros.</span>
+                    </h2>
+                    <p class="text-lg text-gray-400 mt-4 max-w-3xl mx-auto">Não operamos com equipas enxutas ou estagiários. O seu projeto é guiado por um board multidisciplinar de especialistas seniores em cada área do funil.</p>
+                </div>
+                
+                <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="glass-card rounded-3xl p-8 flex flex-col space-y-6 border-t-4 border-gray-700 hover:border-brand-orange transition-colors reveal group">
+                        <div class="w-16 h-16 rounded-2xl bg-[#111] border border-gray-600 group-hover:border-brand-orange flex items-center justify-center text-gray-500 group-hover:text-brand-orange shrink-0 transition-colors">
+                            <i class="fa-solid fa-database text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white font-display mb-2">Inteligência & Dados</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed font-light">Cientistas de Dados focados em mapear o Unit Economics, configurar o tracking avançado (GA4, CAPI) e criar painéis de Business Intelligence.</p>
                         </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">Inteligência</h3>
-                    <p class="text-sm text-gray-400">Diagnóstico profundo e criação do Plano de Ação (Blueprint).</p>
-                </div>
 
-                <!-- Connectors (Desktop) -->
-                <div class="hidden md:block absolute left-[28%] top-[108px] ioe-connector opacity-30"></div>
-                <div class="hidden md:block absolute right-[28%] top-[108px] ioe-connector opacity-30"></div>
-
-                <!-- Card O -->
-                <div class="text-center group cursor-pointer hover:-translate-y-2 transition-transform duration-300 reveal" style="transition-delay: 100ms;">
-                    <div class="w-24 h-24 mx-auto bg-brand-black border-2 border-gray-700 rounded-full flex items-center justify-center text-4xl font-bold text-gray-500 mb-6 group-hover:border-brand-orange group-hover:text-white transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(249,115,22,0.3)]">
-                        O
+                    <!-- Card 2 -->
+                    <div class="glass-card rounded-3xl p-8 flex flex-col space-y-6 border-t-4 border-gray-700 hover:border-brand-orange transition-colors reveal group delay-100">
+                        <div class="w-16 h-16 rounded-2xl bg-[#111] border border-gray-600 group-hover:border-brand-orange flex items-center justify-center text-gray-500 group-hover:text-brand-orange shrink-0 transition-colors">
+                            <i class="fa-solid fa-rocket text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white font-display mb-2">Growth & Mídia</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed font-light">Especialistas seniores na aquisição de tráfego em grande escala. Profissionais focados puramente em otimização de CPL, CAC e ROAS nas maiores plataformas.</p>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">Operação</h3>
-                    <p class="text-sm text-gray-400">Execução do plano. Correção de gargalos e setup de máquina.</p>
-                </div>
 
-                <!-- Card E -->
-                <div class="text-center group cursor-pointer hover:-translate-y-2 transition-transform duration-300 reveal" style="transition-delay: 200ms;">
-                    <div class="w-24 h-24 mx-auto bg-brand-black border-2 border-gray-700 rounded-full flex items-center justify-center text-4xl font-bold text-gray-500 mb-6 group-hover:border-brand-orange group-hover:text-white transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(249,115,22,0.3)]">
-                        E
+                    <!-- Card 3 -->
+                    <div class="glass-card rounded-3xl p-8 flex flex-col space-y-6 border-t-4 border-gray-700 hover:border-brand-orange transition-colors reveal group delay-200">
+                        <div class="w-16 h-16 rounded-2xl bg-[#111] border border-gray-600 group-hover:border-brand-orange flex items-center justify-center text-gray-500 group-hover:text-brand-orange shrink-0 transition-colors">
+                            <i class="fa-solid fa-filter text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white font-display mb-2">Engenharia de Vendas</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed font-light">Profissionais de CRO e arquitetos de CRM. O foco desta equipa é otimizar as Landing Pages, desenhar os guiões de venda e garantir a retenção (LTV).</p>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">Escala</h3>
-                    <p class="text-sm text-gray-400">Acompanhamento estratégico e otimização de ROI.</p>
+                </div>
+                
+                <div class="mt-16 text-center reveal delay-300">
+                    <p class="text-xl text-white font-light">Nós não vendemos execução no escuro. Nós diagnosticamos primeiro.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 6: A TRANSFORMAÇÃO (O DEPOIS) -->
+        <!-- ===================================================================== -->
+        <section class="py-24 bg-[#050505] border-b border-white/5 w-full">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <span class="text-gray-500 font-bold text-xs uppercase tracking-widest mb-2 block">A Transformação</span>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">O "Depois" que o produto proporciona</h2>
+                    <p class="text-lg text-gray-400 max-w-3xl mx-auto">Em vez de prometer resultados mágicos, entregamos estrutura para escalar com segurança e previsibilidade.</p>
                 </div>
 
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Bento Cards -->
+                    <div class="glass-card rounded-2xl p-8 border-l-4 border-gray-700 hover:border-brand-orange transition-colors reveal group">
+                        <i class="fa-solid fa-eye text-gray-500 group-hover:text-brand-orange text-3xl mb-4 transition-colors"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Clareza sobre o cenário atual</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">O diagnóstico oferece uma visão detalhada sobre os investimentos, canais e funil de vendas, permitindo entender onde a empresa está hoje e quais pontos precisam de atenção.</p>
+                    </div>
+                    
+                    <div class="glass-card rounded-2xl p-8 border-l-4 border-gray-700 hover:border-brand-orange transition-colors reveal group delay-100">
+                        <i class="fa-solid fa-compass text-gray-500 group-hover:text-brand-orange text-3xl mb-4 transition-colors"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Uso eficiente do orçamento</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">Entregamos uma análise que ajuda a priorizar canais e estratégias, reduzindo desperdícios e orientando decisões muito mais assertivas.</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-8 border-l-4 border-gray-700 hover:border-brand-orange transition-colors reveal group delay-200">
+                        <i class="fa-solid fa-filter text-gray-500 group-hover:text-brand-orange text-3xl mb-4 transition-colors"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Estruturação de Funil & ICP</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">O trabalho mapeia os perfis ideais de clientes, canais prioritários e oportunidades de conversão, criando base sólida para um planeamento eficiente.</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-8 border-l-4 border-gray-700 hover:border-brand-orange transition-colors reveal group">
+                        <i class="fa-solid fa-shield-halved text-gray-500 group-hover:text-brand-orange text-3xl mb-4 transition-colors"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Preparação para competição</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">Com benchmarks e análises de mercado, a empresa passa a ter informações estratégicas para entender como se posicionar frente à concorrência.</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-8 border-l-4 border-gray-700 hover:border-brand-orange transition-colors reveal group delay-100">
+                        <i class="fa-solid fa-brain text-gray-500 group-hover:text-brand-orange text-3xl mb-4 transition-colors"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Decisões mais embasadas</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">Ao reunir dados, métricas e projeções, o produto oferece insumos concretos para que gestores decidam com segurança onde investir.</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-8 border-l-4 border-gray-700 hover:border-brand-orange transition-colors reveal group delay-200">
+                        <i class="fa-solid fa-arrow-trend-up text-gray-500 group-hover:text-brand-orange text-3xl mb-4 transition-colors"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Planejamento de crescimento</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">O diagnóstico entrega um roadmap estruturado, com etapas claras e recomendações práticas para sustentar o crescimento no médio e longo prazo.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FASE 1: INTELIGÊNCIA (DEEP DIVE) -->
-    <section id="fase1" class="py-32 bg-brand-black relative overflow-hidden">
-        <!-- Background decorative blob -->
-        <div class="absolute left-0 top-1/4 w-[800px] h-[800px] bg-brand-orange/5 rounded-full blur-[120px] -z-0 pointer-events-none"></div>
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 7: CRONOGRAMA DE ENTREGAS (5 ETAPAS) -->
+        <!-- ===================================================================== -->
+        <section class="py-24 bg-[#0a0a0a] border-b border-white/5 w-full">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <span class="text-brand-orange font-bold text-xs uppercase tracking-widest mb-2 block">E como irá acontecer</span>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">Cronograma de Entregas</h2>
+                    <p class="text-xl text-gray-400">Ao final de 5 semanas, você terá um plano prático completo.</p>
+                </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            
-            <!-- Header Fase 1 -->
-            <div class="mb-20 text-center md:text-left reveal">
-                <span class="inline-block px-3 py-1 bg-brand-orange/10 border border-brand-orange/20 rounded text-brand-orange font-bold text-xs uppercase tracking-widest mb-4">Fase 1 - O Produto Principal</span>
-                <h2 class="text-5xl md:text-6xl font-display font-bold text-white mb-6">
-                    Blueprint Estratégico
-                </h2>
-                <p class="text-gray-400 text-lg md:text-xl max-w-3xl leading-relaxed">
-                    Um ciclo de <strong>4 semanas de imersão</strong> onde não executamos nada "no escuro". Mapeamos todo o cenário para entregar um roadmap validado, eliminando o "achismo" da equação.
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-20">
-                <!-- Timeline Detail -->
-                <div class="relative pl-8 md:pl-12 space-y-16">
+                <div class="relative pl-8 md:pl-12 space-y-12">
                     <div class="timeline-line"></div>
 
-                    <!-- Week 1: Kick-Off -->
+                    <!-- ETAPA 1 -->
                     <div class="relative group reveal">
-                        <div class="absolute -left-[34px] md:-left-[38px] top-0 w-8 h-8 rounded-full bg-brand-black border-2 border-brand-orange flex items-center justify-center text-xs font-bold text-brand-orange z-10 shadow-[0_0_15px_rgba(249,115,22,0.4)]">01</div>
-                        <div class="glass-card p-8 rounded-2xl border-l-4 border-l-brand-orange">
-                            <h3 class="text-2xl font-bold text-white mb-3">Semana 1: Kick-Off (Imersão)</h3>
-                            <p class="text-sm text-gray-400 mb-5">Reunião de alinhamento e coleta intensiva de dados.</p>
-                            <ul class="text-sm text-gray-300 space-y-3">
-                                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-brand-orange"><i class="fa-solid fa-users text-xs"></i></span> Definição de ICP (Perfil Ideal) e Persona</li>
-                                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-brand-orange"><i class="fa-solid fa-bullseye text-xs"></i></span> Definição de Objetivos e KPIs (SMART)</li>
-                                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-brand-orange"><i class="fa-solid fa-history text-xs"></i></span> Análise de Histórico de Vendas</li>
+                        <div class="absolute -left-[34px] md:-left-[38px] top-0 w-8 h-8 rounded-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange flex items-center justify-center text-xs font-bold text-gray-400 group-hover:text-white z-10 transition-colors">01</div>
+                        <div class="glass-card p-6 rounded-2xl border-l-4 border-gray-600 group-hover:border-brand-orange transition-colors">
+                            <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide font-display">Etapa 1: Assessment e Onboarding</h3>
+                            <ul class="space-y-3 text-sm text-gray-400 mt-4">
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> Assessment de vendas (formulário) + alinhamento de expectativas.</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> Kick-off + Devolutiva Estratégica e início dos próximos passos.</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> Preenchimento do diagnóstico automatizado (ROI System).</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> Checklist de acessos: funil, metas, scripts, CRM.</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Week 2: Diagnósticos -->
+                    <!-- ETAPA 2 -->
                     <div class="relative group reveal">
-                        <div class="absolute -left-[34px] md:-left-[38px] top-0 w-8 h-8 rounded-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange transition-colors flex items-center justify-center text-xs font-bold text-gray-400 group-hover:text-white z-10">02</div>
-                        <div class="glass-card p-8 rounded-2xl border-l-4 border-l-gray-600 group-hover:border-l-brand-orange transition-colors">
-                            <h3 class="text-2xl font-bold text-white mb-3">Semana 2: Diagnóstico (Scan)</h3>
-                            <p class="text-sm text-gray-400 mb-5">Auditoria técnica 360º dos ativos da empresa.</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-400">
-                                <div class="flex items-center gap-2"><i class="fa-brands fa-google text-brand-orange"></i> Auditoria de Mídia</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-paintbrush text-brand-orange"></i> Análise de Criativos</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-desktop text-brand-orange"></i> Análise de CRO (Site)</div>
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-user-secret text-brand-orange"></i> Cliente Oculto</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Week 3: Estratégia -->
-                    <div class="relative group reveal">
-                        <div class="absolute -left-[34px] md:-left-[38px] top-0 w-8 h-8 rounded-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange transition-colors flex items-center justify-center text-xs font-bold text-gray-400 group-hover:text-white z-10">03</div>
-                        <div class="glass-card p-8 rounded-2xl border-l-4 border-l-gray-600 group-hover:border-l-brand-orange transition-colors">
-                            <h3 class="text-2xl font-bold text-white mb-3">Semana 3: Estratégia (Strategy)</h3>
-                            <p class="text-sm text-gray-400 mb-5">Inteligência de mercado e plano de ataque.</p>
-                            <ul class="text-sm text-gray-300 space-y-3">
-                                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-gray-500"><i class="fa-solid fa-chess-board text-xs"></i></span> Análise SWOT e Matriz 4Ps</li>
-                                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-gray-500"><i class="fa-solid fa-magnifying-glass text-xs"></i></span> Benchmarking de Concorrentes</li>
-                                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-gray-500"><i class="fa-solid fa-map text-xs"></i></span> Mapa Estratégico de Canais</li>
+                        <div class="absolute -left-[34px] md:-left-[38px] top-0 w-8 h-8 rounded-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange flex items-center justify-center text-xs font-bold text-gray-400 group-hover:text-white z-10 transition-colors">02</div>
+                        <div class="glass-card p-6 rounded-2xl border-l-4 border-gray-600 group-hover:border-brand-orange transition-colors">
+                            <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide font-display">Etapa 2: Pesquisa de Mercado</h3>
+                            <ul class="space-y-3 text-sm text-gray-400 mt-4">
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> Sizing de Mercado (TAM/SAM/SOM) e Jobs To Be Done.</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> Comparativo de soluções e Estudo de Concorrentes.</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> Diferenciais competitivos e Definição de PUV.</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> Definição de ICP/Persona e Comitê de Compra (B2B).</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Week 4: O Plano -->
+                    <!-- ETAPA 3 -->
                     <div class="relative group reveal">
-                        <div class="absolute -left-[34px] md:-left-[38px] top-0 w-8 h-8 rounded-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange transition-colors flex items-center justify-center text-xs font-bold text-gray-400 group-hover:text-white z-10">04</div>
-                        <div class="glass-card p-8 rounded-2xl border-l-4 border-l-gray-600 group-hover:border-l-brand-orange transition-colors">
-                            <h3 class="text-2xl font-bold text-white mb-3">Semana 4: O Roadmap</h3>
-                            <p class="text-sm text-gray-400 mb-5">Entrega do documento final com o plano de execução.</p>
-                            <div class="p-4 bg-brand-orange/10 rounded-lg border border-brand-orange/20 inline-flex items-center gap-3">
-                                <i class="fa-solid fa-file-pdf text-2xl text-brand-orange"></i>
-                                <div>
-                                    <p class="text-xs text-brand-orange font-bold uppercase">Entregável Final</p>
-                                    <p class="text-white font-bold">"Growth Plan Masterbook"</p>
-                                </div>
-                            </div>
+                        <div class="absolute -left-[34px] md:-left-[38px] top-0 w-8 h-8 rounded-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange flex items-center justify-center text-xs font-bold text-gray-400 group-hover:text-white z-10 transition-colors">03</div>
+                        <div class="glass-card p-6 rounded-2xl border-l-4 border-gray-600 group-hover:border-brand-orange transition-colors">
+                            <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide font-display">Etapa 3: Diagnóstico de Marketing</h3>
+                            <ul class="space-y-3 text-sm text-gray-400 mt-4">
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> <strong>Diagnóstico de Mídia Paga:</strong> Revisão técnica de eficiência (Meta Ads e Google Ads).</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> <strong>Diagnóstico de Criativos:</strong> Benchmarking de materiais para anúncios e redes sociais.</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> <strong>Diagnóstico de Ambientes (CRO):</strong> Avaliação de design, copy e performance de sites.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ETAPA 4 -->
+                    <div class="relative group reveal">
+                        <div class="absolute -left-[34px] md:-left-[38px] top-0 w-8 h-8 rounded-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange flex items-center justify-center text-xs font-bold text-gray-400 group-hover:text-white z-10 transition-colors">04</div>
+                        <div class="glass-card p-6 rounded-2xl border-l-4 border-gray-600 group-hover:border-brand-orange transition-colors">
+                            <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide font-display">Etapa 4: Diagnóstico de Vendas</h3>
+                            <ul class="space-y-3 text-sm text-gray-400 mt-4">
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> <strong>Cliente Oculto:</strong> Avaliação da experiência de compra na perspetiva do cliente.</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> <strong>Análise Comercial:</strong> Avaliação do funil, performance e habilidades da equipa.</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> <strong>Plano de Ação:</strong> Estratégia de treino e rituais baseados no diagnóstico.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ETAPA 5 -->
+                    <div class="relative group reveal">
+                        <div class="absolute -left-[34px] md:-left-[38px] top-0 w-8 h-8 rounded-full bg-brand-black border-2 border-gray-600 group-hover:border-brand-orange flex items-center justify-center text-xs font-bold text-gray-400 group-hover:text-white z-10 transition-colors">05</div>
+                        <div class="glass-card p-6 rounded-xl border-l-4 border-gray-600 group-hover:border-brand-orange transition-colors">
+                            <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-wide font-display">Etapa 5: Estratégias de Marketing e Vendas</h3>
+                            <ul class="space-y-3 text-sm text-gray-400 mt-4">
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> Matriz de priorização de GTM e Canais.</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> Fluxo de Estratégias de Aquisição, Monetização e Retenção.</li>
+                                <li class="flex items-start gap-3"><i class="fa-solid fa-check text-green-500 mt-1"></i> <strong>Forecast de Mídia:</strong> Projeção de investimento e resultados esperados.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 8: ENTREGÁVEIS (A ESTRUTURA ESCALONÁVEL) -->
+        <!-- ===================================================================== -->
+        <section class="py-24 bg-[#030303] border-b border-brand-border relative w-full">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-orange/10 via-black to-black z-0 pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <p class="text-gray-500 uppercase tracking-widest text-sm font-bold mb-2">E no final de tudo, você terá:</p>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white">Diagnóstico Completo <span class="bg-brand-orange px-3 py-1 rounded-md text-black inline-block mt-2 md:mt-0 font-black">+ Entregáveis</span></h2>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-10 items-stretch mb-8">
+                    <!-- Lista de Diagnósticos -->
+                    <div class="lg:col-span-5 flex flex-col justify-center space-y-0 reveal">
+                        <h3 class="text-2xl font-bold text-white mb-6">Diagnósticos Completos:</h3>
+                        <div class="space-y-0">
+                            <div class="py-4 border-b border-white/10 text-gray-300 font-medium hover:text-brand-orange cursor-default transition-colors">Pesquisas de Mercado</div>
+                            <div class="py-4 border-b border-white/10 text-gray-300 font-medium hover:text-brand-orange cursor-default transition-colors">Estratégias de Posicionamento</div>
+                            <div class="py-4 border-b border-white/10 text-gray-300 font-medium hover:text-brand-orange cursor-default transition-colors">Diagnósticos de Mídia Paga</div>
+                            <div class="py-4 border-b border-white/10 text-gray-300 font-medium hover:text-brand-orange cursor-default transition-colors">Diagnósticos de Criativos</div>
+                            <div class="py-4 border-b border-white/10 text-gray-300 font-medium hover:text-brand-orange cursor-default transition-colors">Diagnósticos Comerciais</div>
+                            <div class="py-4 border-b border-white/10 text-gray-300 font-medium hover:text-brand-orange cursor-default transition-colors">Estratégias de Marketing e Vendas</div>
+                            <div class="py-4 border-b border-white/10 text-gray-300 font-medium hover:text-brand-orange cursor-default transition-colors">Diagnósticos de Ambientes (CRO)</div>
+                        </div>
+                    </div>
+
+                    <!-- Imagem Tech Blueprint Central -->
+                    <div class="lg:col-span-7 rounded-3xl overflow-hidden reveal relative h-[400px] lg:h-auto border border-white/10 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070" class="w-full h-full object-cover mix-blend-luminosity opacity-40 hover:scale-105 transition-transform duration-1000">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-brand-orange/10 to-transparent"></div>
+                        <div class="absolute inset-0 flex items-center justify-center flex-col text-center p-8">
+                            <i class="fa-solid fa-microchip text-6xl text-brand-orange mb-6 drop-shadow-lg"></i>
+                            <h3 class="text-4xl font-display font-black text-white tracking-widest uppercase">Estrutura <br>Escalonável</h3>
                         </div>
                     </div>
                 </div>
 
-                <!-- CTA Box Phase 1 + Mockup -->
-                <div class="flex flex-col justify-start pt-10 reveal">
-                    
-                    <!-- Pricing Box -->
-                    <div class="bg-brand-card border border-white/10 p-8 md:p-10 rounded-3xl relative overflow-hidden shadow-2xl sticky top-24">
-                        <div class="absolute top-0 right-0 bg-brand-orange text-black text-xs font-bold px-4 py-2 rounded-bl-xl shadow-lg">OFERTA ESPECIAL</div>
-                        
-                        <h3 class="text-3xl font-display font-bold text-white mb-2">Contrate o Blueprint</h3>
-                        <p class="text-gray-400 text-sm mb-8">Tenha clareza total do que precisa ser feito antes de gastar com equipe.</p>
-                        
-                        <div class="mb-8 p-4 bg-black/40 rounded-xl border border-white/5">
-                            <p class="text-xs text-gray-500 line-through mb-1">De R$ 7.997,00</p>
-                            <div class="flex items-end gap-2">
-                                <span class="text-5xl font-bold text-brand-orange tracking-tight">R$ 4.997</span>
-                                <span class="text-sm text-white mb-2 font-bold">,00</span>
-                            </div>
-                            <p class="text-xs text-green-500 mt-2 font-bold flex items-center gap-1"><i class="fa-solid fa-tag"></i> Condição por tempo limitado</p>
+                <!-- Entregas Físicas (Cards Base) -->
+                <div class="mt-12 bg-brand-black border border-white/5 rounded-3xl p-8 reveal">
+                    <h3 class="text-xl font-bold text-white mb-6">Entregas Materiais:</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="glass-card rounded-xl p-6 flex flex-col items-center text-center cursor-default group border border-transparent hover:border-brand-orange/50 transition-colors">
+                            <i class="fa-solid fa-laptop-code text-4xl text-gray-500 mb-4 transition-colors group-hover:text-brand-orange"></i>
+                            <span class="text-sm font-bold text-white">1 Landing Page (Wireframe)</span>
                         </div>
+                        <div class="glass-card rounded-xl p-6 flex flex-col items-center text-center cursor-default group border border-transparent hover:border-brand-orange/50 transition-colors">
+                            <i class="fa-solid fa-book-open text-4xl text-gray-500 mb-4 transition-colors group-hover:text-brand-orange"></i>
+                            <span class="text-sm font-bold text-white">Manual de Comunicação</span>
+                        </div>
+                        <div class="glass-card rounded-xl p-6 flex flex-col items-center text-center cursor-default group border border-transparent hover:border-brand-orange/50 transition-colors">
+                            <i class="fa-solid fa-images text-4xl text-gray-500 mb-4 transition-colors group-hover:text-brand-orange"></i>
+                            <span class="text-sm font-bold text-white">3 Criativos para Ads</span>
+                        </div>
+                        <div class="glass-card rounded-xl p-6 flex flex-col items-center text-center cursor-default group border border-transparent hover:border-brand-orange/50 transition-colors">
+                            <i class="fa-solid fa-swatchbook text-4xl text-gray-500 mb-4 transition-colors group-hover:text-brand-orange"></i>
+                            <span class="text-sm font-bold text-white">Manual de Identidade Visual</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                        <ul class="space-y-4 mb-8 pt-2">
-                            <li class="flex items-center gap-3 text-sm text-gray-300">
-                                <div class="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center"><i class="fa-solid fa-check text-green-500 text-xs"></i></div>
-                                Cronograma de 4 Semanas
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-gray-300">
-                                <div class="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center"><i class="fa-solid fa-check text-green-500 text-xs"></i></div>
-                                Documento de Planejamento (PDF)
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-gray-300">
-                                <div class="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center"><i class="fa-solid fa-check text-green-500 text-xs"></i></div>
-                                Sem fidelidade posterior
-                            </li>
-                        </ul>
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 9: ANCORAGEM DE MERCADO -->
+        <!-- ===================================================================== -->
+        <section class="py-24 bg-brand-surface2 border-t border-brand-border w-full reveal">
+            <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-10">Normalmente,<br>quanto isso <span class="text-brand-orange">custaria?</span></h2>
+                    <div class="space-y-0">
+                        <div class="flex justify-between py-4 border-b border-white/10 text-gray-300 hover:bg-white/5 px-2 rounded transition-colors"><span class="font-medium">Pesquisas de Mercado</span><span class="font-bold text-white">R$ 2.000,00</span></div>
+                        <div class="flex justify-between py-4 border-b border-white/10 text-gray-300 hover:bg-white/5 px-2 rounded transition-colors"><span class="font-medium">Estratégias de Posicionamento</span><span class="font-bold text-white">R$ 1.500,00</span></div>
+                        <div class="flex justify-between py-4 border-b border-white/10 text-gray-300 hover:bg-white/5 px-2 rounded transition-colors"><span class="font-medium">Diagnósticos de Mídia Paga</span><span class="font-bold text-white">R$ 1.500,00</span></div>
+                        <div class="flex justify-between py-4 border-b border-white/10 text-gray-300 hover:bg-white/5 px-2 rounded transition-colors"><span class="font-medium">Diagnósticos de Criativos</span><span class="font-bold text-white">R$ 1.500,00</span></div>
+                        <div class="flex justify-between py-4 border-b border-white/10 text-gray-300 hover:bg-white/5 px-2 rounded transition-colors"><span class="font-medium">Diagnósticos Comerciais</span><span class="font-bold text-white">R$ 2.000,00</span></div>
+                        <div class="flex justify-between py-4 border-b border-white/10 text-gray-300 hover:bg-white/5 px-2 rounded transition-colors"><span class="font-medium">Estratégias de Marketing & Vendas</span><span class="font-bold text-white">R$ 2.500,00</span></div>
+                        <div class="flex justify-between py-4 border-b border-white/10 text-gray-300 hover:bg-white/5 px-2 rounded transition-colors"><span class="font-medium">Diagnósticos de Ambientes (CRO)</span><span class="font-bold text-white">R$ 1.500,00</span></div>
+                        <div class="flex justify-between py-4 border-b border-white/10 text-gray-300 hover:bg-white/5 px-2 rounded transition-colors"><span class="font-medium">Landing Page (Wireframe) + 3 Criativos</span><span class="font-bold text-white">R$ 1.000,00</span></div>
+                        <div class="flex justify-between py-4 border-b border-white/10 text-gray-300 hover:bg-white/5 px-2 rounded transition-colors"><span class="font-medium">Manuais de Comunicação e Identidade</span><span class="font-bold text-white">R$ 500,00</span></div>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 flex flex-col items-center justify-center p-12 bg-black rounded-3xl border border-white/5 relative overflow-hidden shadow-2xl">
+                    <div class="absolute inset-0 bg-brand-orange/10 blur-3xl rounded-full"></div>
+                    <p class="text-brand-orange font-bold uppercase tracking-widest mb-6 relative z-10 text-sm">Soma Total</p>
+                    <div class="flex items-start justify-center relative z-10">
+                        <span class="text-3xl font-bold text-white mt-2 mr-2">R$</span>
+                        <span class="text-7xl md:text-8xl font-display font-black text-brand-orange tracking-tighter">14.000</span>
+                        <span class="text-3xl font-bold text-brand-orange mt-2">,00</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                        <a href="#contato" class="btn-glow block w-full py-5 bg-brand-orange hover:bg-orange-600 text-white font-bold text-center text-lg rounded-xl transition-all shadow-[0_10px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_15px_40px_rgba(249,115,22,0.5)] transform hover:-translate-y-1">
-                            Garantir Oferta
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 10: FAQ -->
+        <!-- ===================================================================== -->
+        <section class="py-24 px-6 bg-black border-t border-brand-border w-full">
+            <div class="max-w-4xl mx-auto reveal">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white">Ficou alguma dúvida?</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <details class="group bg-brand-surface2 border border-white/10 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-brand-orange/50">
+                        <summary class="flex justify-between items-center font-medium p-6 text-lg text-white outline-none">
+                            <span class="pr-6">Qual é a função central deste Blueprint?</span>
+                            <span class="transition-transform duration-300 group-open:rotate-180 text-brand-orange shrink-0"><i class="fa-solid fa-chevron-down"></i></span>
+                        </summary>
+                        <div class="text-gray-400 p-6 pt-0 leading-relaxed border-t border-white/5 mt-2 text-sm">
+                            Gerar clareza antes da execução. Nós conectamos análises de funil, campanhas e CRM a um plano de ação tático com projeção financeira. O objetivo é parar de atirar no escuro e focar no que dá lucro real.
+                        </div>
+                    </details>
+
+                    <details class="group bg-brand-surface2 border border-white/10 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-brand-orange/50">
+                        <summary class="flex justify-between items-center font-medium p-6 text-lg text-white outline-none">
+                            <span class="pr-6">Quais problemas a falta de diagnóstico gera hoje?</span>
+                            <span class="transition-transform duration-300 group-open:rotate-180 text-brand-orange shrink-0"><i class="fa-solid fa-chevron-down"></i></span>
+                        </summary>
+                        <div class="text-gray-400 p-6 pt-0 leading-relaxed border-t border-white/5 mt-2 text-sm">
+                            As consequências são: dispersão de orçamento, ROI incerto, e a geração de leads que até chegam, mas não convertem. O maior risco para o seu caixa hoje é continuar no "tentativa e erro" sem um norte claro.
+                        </div>
+                    </details>
+
+                    <details class="group bg-brand-surface2 border border-white/10 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-brand-orange/50">
+                        <summary class="flex justify-between items-center font-medium p-6 text-lg text-white outline-none">
+                            <span class="pr-6">Sou obrigado a contratar a Gestão Mensal (Fase 3) depois?</span>
+                            <span class="transition-transform duration-300 group-open:rotate-180 text-brand-orange shrink-0"><i class="fa-solid fa-chevron-down"></i></span>
+                        </summary>
+                        <div class="text-gray-400 p-6 pt-0 leading-relaxed border-t border-white/5 mt-2 text-sm">
+                            Não. O Blueprint é um produto independente, com início, meio e fim. O documento (Masterbook) é seu. Se desejar, você pode executar o plano com a sua própria equipe interna ou com a sua agência atual.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 11: TEMPERATURE CHECK (RATING WIDGET) -->
+        <!-- ===================================================================== -->
+        <section class="py-24 px-6 bg-brand-surface2 border-t border-brand-border text-center w-full reveal">
+            <div class="max-w-3xl mx-auto">
+                <p class="text-gray-500 uppercase tracking-widest mb-4 font-semibold text-sm">Antes de falarmos do nosso investimento</p>
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-12 text-balance">
+                    De 1 a 5, o quanto o nosso método I.O.S. <br>faz sentido para a sua empresa hoje?
+                </h2>
+                
+                <div class="flex items-center justify-center gap-2 sm:gap-6 bg-black p-6 sm:p-8 rounded-3xl border border-white/5 shadow-xl" id="rating-widget">
+                    <!-- Stars using SVG to bypass issues and allow JS fill manipulation -->
+                    <button class="star-btn outline-none group cursor-pointer" data-value="1">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 sm:w-16 sm:h-16 text-gray-700 fill-transparent transition-colors star-svg">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </button>
+                    <button class="star-btn outline-none group cursor-pointer" data-value="2">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 sm:w-16 sm:h-16 text-gray-700 fill-transparent transition-colors star-svg">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </button>
+                    <button class="star-btn outline-none group cursor-pointer" data-value="3">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 sm:w-16 sm:h-16 text-gray-700 fill-transparent transition-colors star-svg">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </button>
+                    <button class="star-btn outline-none group cursor-pointer" data-value="4">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 sm:w-16 sm:h-16 text-gray-700 fill-transparent transition-colors star-svg">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </button>
+                    <button class="star-btn outline-none group cursor-pointer" data-value="5">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12 sm:w-16 sm:h-16 text-gray-700 fill-transparent transition-colors star-svg">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+                
+                <p class="text-brand-orange text-sm mt-6 italic font-medium min-h-[20px]" id="rating-feedback">Passe o mouse para interagir</p>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO 12: A OFERTA FINAL (E FULL-WIDTH) -->
+        <!-- ===================================================================== -->
+        <section class="py-32 bg-gradient-to-b from-brand-orange/10 to-black text-center border-t border-brand-orange/20 overflow-hidden relative w-full reveal">
+            
+            <!-- Marquee Background Full Width -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] overflow-hidden opacity-[0.04] pointer-events-none rotate-[-5deg] z-0">
+                <div class="animate-marquee whitespace-nowrap flex gap-4 text-[120px] font-display font-black text-white">
+                    <span>SOMENTE ESTE MÊS • SOMENTE ESTE MÊS • SOMENTE ESTE MÊS • SOMENTE ESTE MÊS • </span>
+                    <span>SOMENTE ESTE MÊS • SOMENTE ESTE MÊS • SOMENTE ESTE MÊS • SOMENTE ESTE MÊS • </span>
+                </div>
+            </div>
+
+            <div class="max-w-5xl w-full mx-auto px-6 relative z-10">
+                <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-12 text-balance">
+                    E para quem fechar o escopo <span class="text-brand-orange">hoje:</span>
+                </h2>
+                
+                <!-- Full Width Content Box inside Container -->
+                <div class="bg-black/90 backdrop-blur-xl border border-brand-orange/50 p-10 md:p-16 rounded-[2.5rem] shadow-glow-lg mt-12 mb-12 transform hover:scale-[1.01] transition-transform w-full">
+                    <p class="text-brand-orange font-bold tracking-widest uppercase text-sm mb-6">Blueprint Estratégico (4 Semanas)</p>
+                    
+                    <div class="flex flex-col items-center justify-center">
+                        <div class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-display font-bold text-white mb-2 tracking-tighter">
+                            12x <span class="text-brand-orange">R$ 458,33</span>
+                        </div>
+                        <p class="text-gray-400 text-xl mt-4 font-medium">ou R$ 4.997,00 à vista</p>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-8 mb-16 pt-10 border-t border-white/10 mt-10">
+                        <div class="flex items-center gap-3 text-white">
+                            <i class="fa-solid fa-check-circle text-brand-orange w-6 h-6 shrink-0"></i> 
+                            <span class="text-sm md:text-base font-medium">Diagnóstico 360º Completo</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-white">
+                            <i class="fa-solid fa-check-circle text-brand-orange w-6 h-6 shrink-0"></i> 
+                            <span class="text-sm md:text-base font-medium">Growth Masterbook (PDF)</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-white">
+                            <i class="fa-solid fa-check-circle text-brand-orange w-6 h-6 shrink-0"></i> 
+                            <span class="text-sm md:text-base font-medium">Plano Tático de Execução</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center flex flex-col items-center max-w-lg mx-auto">
+                        <!-- Opção Negativa (Destaque Psicológico com Hover State Dinâmico) -->
+                        <a href="#" class="group w-full h-[72px] bg-red-600 hover:bg-brand-orange text-white font-black text-lg md:text-xl rounded-xl shadow-[0_0_40px_rgba(220,38,38,0.5)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] animate-pulse hover:animate-none transition-all cursor-pointer flex justify-center items-center mb-6 border-2 border-red-500 hover:border-brand-orange relative overflow-hidden">
+                            <span class="flex items-center absolute transition-all duration-300 group-hover:-translate-y-20">
+                                <i class="fa-solid fa-triangle-exclamation w-6 h-6 mr-3"></i> PERDER ESSA OPORTUNIDADE
+                            </span>
+                            <span class="flex items-center absolute transition-all duration-300 translate-y-20 group-hover:translate-y-0 text-center uppercase tracking-wide px-2">
+                                VOCÊ NÃO ESTÁ PRONTO PARA CRESCER?
+                            </span>
                         </a>
                         
-                        <p class="text-[10px] text-center text-gray-600 mt-4"><i class="fa-solid fa-lock"></i> Pagamento 100% seguro</p>
+                        <!-- Opção Positiva (Subtil) -->
+                        <button class="w-full btn-ghost bg-[#111111] border border-gray-800 text-gray-300 hover:text-white font-bold text-sm py-4 rounded-xl hover:bg-white/5 hover:border-brand-orange/30 transition-all flex justify-center items-center gap-2 shadow-md">
+                            <i class="fa-solid fa-file-signature w-5 h-5"></i> Quero melhorar minha empresa agora
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FASE 2: OPERAÇÃO (SETUP - LIGHTER) -->
-    <section id="fase2" class="py-24 bg-brand-darkGray border-t border-white/5 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <span class="text-gray-500 font-bold text-xs uppercase tracking-widest mb-2 block">Passo 2 - Implementação</span>
-                <h2 class="text-3xl md:text-4xl font-display font-bold text-white">
-                    Operação & Correção
-                </h2>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-                    Após o diagnóstico, entramos para resolver as restrições identificadas. Não é gestão mensal eterna, é <strong>setup de máquina</strong>.
-                </p>
-            </div>
+    </main>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center reveal">
-                <div class="space-y-6">
-                    <div class="glass-card p-6 rounded-xl flex gap-5 border-l-4 border-l-white/20 hover:border-l-brand-orange">
-                        <div class="w-12 h-12 rounded-lg bg-black flex items-center justify-center text-2xl text-brand-orange shrink-0">
-                            <i class="fa-solid fa-wrench"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-bold text-lg mb-1">Resolução de Gargalos</h4>
-                            <p class="text-sm text-gray-400">Se o problema é o site, nós corrigimos. Se é o CRM, nós implementamos. Foco na restrição principal.</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-6 rounded-xl flex gap-5 border-l-4 border-l-white/20 hover:border-l-brand-orange">
-                        <div class="w-12 h-12 rounded-lg bg-black flex items-center justify-center text-2xl text-brand-orange shrink-0">
-                            <i class="fa-solid fa-plug"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white font-bold text-lg mb-1">Setup de Ferramentas</h4>
-                            <p class="text-sm text-gray-400">Configuração profissional de Analytics, Pixel, Automações e Dashboards de BI.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="relative h-80 bg-brand-black rounded-2xl border border-white/5 flex flex-col items-center justify-center overflow-hidden group">
-                     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
-                     <div class="absolute inset-0 bg-gradient-to-t from-brand-orange/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                     
-                     <i class="fa-solid fa-gears text-8xl text-white/5 absolute group-hover:scale-110 transition-transform duration-700"></i>
-                     
-                     <div class="z-10 text-center p-8">
-                        <span class="inline-block p-4 rounded-full bg-brand-orange/10 mb-4">
-                            <i class="fa-solid fa-check-double text-3xl text-brand-orange"></i>
-                        </span>
-                        <p class="text-white font-bold text-xl mb-2">Foco: Implementação</p>
-                        <p class="text-gray-500 text-sm">Transformando o plano em realidade.</p>
-                        <div class="mt-6 inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 text-xs text-gray-400">
-                            Duração: ~30 dias
-                        </div>
-                     </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- FASE 3: ESCALA (ADVISORY - LIGHTER) -->
-    <section id="fase3" class="py-24 bg-brand-black border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <span class="text-gray-500 font-bold text-xs uppercase tracking-widest mb-2 block">Passo 3 - Recorrência</span>
-                <h2 class="text-3xl md:text-4xl font-display font-bold text-white">
-                    Escala & Advisory
-                </h2>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-                    Com a casa arrumada, atuamos como seu <strong>Board Estratégico</strong>. Acompanhamento quinzenal para garantir que o plano seja executado.
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12 items-center reveal">
-                
-                <div class="order-2 md:order-1 relative h-80 bg-brand-card rounded-2xl border border-white/5 flex flex-col items-center justify-center overflow-hidden group p-6 shadow-xl">
-                     <canvas id="scaleChart" class="relative z-10 w-full h-full"></canvas>
-                     <div class="absolute top-4 left-4 text-xs font-mono text-gray-500">PROJEÇÃO DE GROWTH</div>
-                </div>
-
-                <div class="order-1 md:order-2 space-y-6">
-                    <div class="bg-brand-orange/5 p-6 rounded-xl border border-brand-orange/20">
-                        <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fa-solid fa-handshake text-brand-orange"></i> Modelo Partnership</h4>
-                        <p class="text-sm text-gray-400 leading-relaxed">
-                            Cobramos um valor fixo menor para manutenção + <strong>Success Fee</strong> (variável sobre o resultado incremental). Só ganhamos quando você ganha.
-                        </p>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4 p-4 rounded hover:bg-white/5 transition-colors">
-                            <i class="fa-solid fa-chart-line text-xl text-brand-orange mt-1"></i>
-                            <div>
-                                <h4 class="text-white font-bold text-sm">Monitoramento de KPIs</h4>
-                                <p class="text-xs text-gray-500 mt-1">Não olhamos 'likes'. Olhamos CAC, LTV e Margem de Contribuição.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4 p-4 rounded hover:bg-white/5 transition-colors">
-                            <i class="fa-solid fa-compass text-xl text-brand-orange mt-1"></i>
-                            <div>
-                                <h4 class="text-white font-bold text-sm">Direção Estratégica</h4>
-                                <p class="text-xs text-gray-500 mt-1">Ajustes de rota rápidos baseados em dados reais do negócio.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- About Me -->
-    <section id="sobre" class="py-24 bg-brand-darkGray border-t border-white/5 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="flex flex-col md:flex-row items-center gap-16">
-                <div class="w-full md:w-1/3 flex justify-center reveal">
-                    <div class="relative w-72 h-72 md:w-80 md:h-80 group">
-                        <div class="absolute inset-0 bg-brand-orange rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-700"></div>
-                        <img src="https://i.imgur.com/pvfgiKp.png" alt="Consultor SCALE X" class="w-full h-full object-cover rounded-full border-4 border-brand-card shadow-2xl relative z-10 grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105">
-                        
-                        <div class="absolute bottom-0 right-4 z-20 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                            Head de Estratégia
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full md:w-2/3 text-center md:text-left reveal">
-                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-8">Quem conduz o seu projeto?</h2>
-                    
-                    <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
-                        <p>
-                            Sempre fui movido por crescimento e liberdade, e isso me levou a passar por diferentes experiências profissionais antes do marketing. Trabalhei com suporte técnico, educação à distância e empreendi em contextos pouco estruturados, o que me deu uma visão prática de como empresas funcionam por dentro e onde, na maioria das vezes, elas travam.
-                        </p>
-                        <p>
-                            No marketing, comecei atendendo poucos clientes e evoluí para conduzir estratégias de crescimento para empresas em diferentes estágios. Ao longo do tempo, participei de projetos que geraram resultados consistentes e ROIs relevantes, lidando não só com tráfego, mas com estratégia, vendas e tomada de decisão baseada em dados.
-                        </p>
-                        <div class="p-6 border-l-4 border-brand-orange bg-white/5 rounded-r-xl italic text-white my-8">
-                            "Foi nesse processo que entendi um ponto-chave: não adianta investir em marketing se a empresa não está estruturada para vender e crescer."
-                        </div>
-                        <p>
-                            Hoje, meu trabalho é identificar a real restrição do negócio e estruturar marketing e vendas de forma integrada, criando crescimento previsível para empresas que querem escalar com clareza e consistência.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer / Form -->
+    <!-- FOOTER / FORM PARA CAPTURA (EXTRA) -->
     <footer id="contato" class="py-24 bg-brand-card border-t border-white/5 relative">
         <div class="absolute inset-0 bg-brand-orange/5 opacity-50 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-orange/10 via-brand-card to-transparent pointer-events-none"></div>
         
         <div class="max-w-3xl mx-auto px-4 text-center relative z-10 reveal">
-            <h2 class="text-4xl font-display font-bold text-white mb-4">Aplique para sua Avaliação</h2>
+            <h2 class="text-4xl font-display font-bold text-white mb-4">Aplicação para Blueprint</h2>
             <p class="text-gray-400 mb-12 text-lg">
-                Preencha para agendarmos sua Sessão de Diagnóstico Gratuita.
+                Preencha para agendarmos a reunião de Kick-off (Semana 1).
             </p>
 
             <form id="scaleForm" class="glass-card p-10 rounded-3xl text-left border border-white/10 shadow-2xl bg-black/40">
@@ -610,8 +906,8 @@
                     </select>
                 </div>
 
-                <button type="submit" id="submitBtn" class="btn-glow w-full py-5 bg-brand-orange text-white font-bold rounded-xl hover:bg-orange-600 transition-all uppercase tracking-widest text-sm shadow-lg flex justify-center items-center gap-2">
-                    <span>Solicitar Avaliação Gratuita</span>
+                <button type="submit" id="submitBtn" class="btn-ghost w-full py-5 bg-brand-orange text-white font-bold rounded-xl hover:bg-orange-600 transition-all uppercase tracking-widest text-sm shadow-lg flex justify-center items-center gap-2">
+                    <span>Garantir Oferta</span>
                 </button>
                 <p class="text-center text-xs text-gray-600 mt-4">Vagas limitadas para este mês.</p>
             </form>
@@ -622,145 +918,180 @@
         </div>
     </footer>
 
+    <!-- SCIPTS DE LÓGICA BLINDADA -->
     <script>
-        // --- WEBHOOK INTEGRATION (JSON) ---
-        const webhookURL = 'https://v4silvaanchieta.site/webhook/scalex';
-        
-        const form = document.forms['scaleForm'];
-        const btn = document.getElementById('submitBtn');
-        const btnText = btn.querySelector('span');
+        // 1. REVEAL ANIMATION (INTERSECTION OBSERVER - SEGURO)
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll(".reveal");
+            
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("active");
+                        }
+                    });
+                }, { threshold: 0.1 });
 
-        // Phone Mask Logic
-        const phoneInput = document.querySelector('input[name="WhatsApp"]');
-        phoneInput.addEventListener('input', function (e) {
-            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+                reveals.forEach((reveal, index) => {
+                    if(reveal.parentElement && reveal.parentElement.classList.contains('grid')) {
+                        const delay = (index % 4) * 100;
+                        if (reveal.style) {
+                            reveal.style.transitionDelay = `${delay}ms`;
+                        }
+                    }
+                    observer.observe(reveal);
+                });
+            } else {
+                // Fallback para navegadores antigos
+                reveals.forEach(r => r.classList.add('active'));
+            }
         });
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
+        // 2. SCROLL PROGRESS BAR
+        window.addEventListener('scroll', () => {
+            const progressBar = document.getElementById('scroll-progress');
+            if (progressBar && progressBar.style) {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (height > 0) {
+                    const scrolled = (winScroll / height) * 100;
+                    progressBar.style.transform = `scaleX(${scrolled / 100})`;
+                }
+            }
+        });
+
+        // 3. MOUSE GLOW (SEGURO)
+        document.addEventListener('mousemove', (e) => {
+            const mouseGlow = document.getElementById('mouse-glow');
+            if(mouseGlow && mouseGlow.style) {
+                mouseGlow.style.setProperty('--mouse-x', `${e.clientX}px`);
+                mouseGlow.style.setProperty('--mouse-y', `${e.clientY}px`);
+                if(mouseGlow.style.opacity === '0' || mouseGlow.style.opacity === '') {
+                    mouseGlow.style.opacity = '1';
+                }
+            }
+        });
+
+        // 4. RATING WIDGET (ESTRELAS)
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('.star-btn');
+            const feedback = document.getElementById('rating-feedback');
             
-            // Loading State
-            btn.disabled = true;
-            btnText.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
-            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            stars.forEach(btn => {
+                btn.addEventListener('mouseenter', (e) => {
+                    const value = parseInt(e.currentTarget.getAttribute('data-value'));
+                    stars.forEach(s => {
+                        const sValue = parseInt(s.getAttribute('data-value'));
+                        const svg = s.querySelector('svg');
+                        if (svg) {
+                            if (sValue <= value) {
+                                svg.classList.add('text-brand-orange', 'fill-current');
+                                svg.classList.remove('text-gray-700', 'fill-transparent');
+                            } else {
+                                svg.classList.remove('text-brand-orange', 'fill-current');
+                                svg.classList.add('text-gray-700', 'fill-transparent');
+                            }
+                        }
+                    });
+                });
 
-            // Capture data from form
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+                btn.addEventListener('click', (e) => {
+                    const value = parseInt(e.currentTarget.getAttribute('data-value'));
+                    
+                    stars.forEach(s => {
+                        const sValue = parseInt(s.getAttribute('data-value'));
+                        const svg = s.querySelector('svg');
+                        if (svg) {
+                            if (sValue <= value) {
+                                svg.classList.remove('text-gray-700', 'fill-transparent');
+                                svg.classList.add('text-brand-orange', 'fill-current');
+                            } else {
+                                svg.classList.remove('text-brand-orange', 'fill-current');
+                                svg.classList.add('text-gray-700', 'fill-transparent');
+                            }
+                        }
+                    });
 
-            // Send JSON
-            fetch(webhookURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                // Success State
-                btnText.innerHTML = '<i class="fa-solid fa-check"></i> Recebido!';
-                btn.classList.remove('bg-brand-orange', 'hover:bg-orange-600');
-                btn.classList.add('bg-green-600');
-                
-                alert("Aplicação Recebida com Sucesso! Nossa equipe entrará em contato em breve.");
-                
-                form.reset();
-                
-                // Reset Button after 3 seconds
-                setTimeout(() => {
-                    btn.disabled = false;
-                    btnText.innerHTML = 'Solicitar Avaliação Gratuita';
-                    btn.classList.remove('opacity-75', 'cursor-not-allowed', 'bg-green-600');
-                    btn.classList.add('bg-brand-orange', 'hover:bg-orange-600');
-                }, 3000);
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                // Fallback alert for successful webhook triggers that might return opacity
-                alert("Aplicação Enviada! (Verifique seu WhatsApp em breve).");
-                form.reset();
-                btn.disabled = false;
-                btnText.innerHTML = 'Solicitar Avaliação Gratuita';
-                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                    if (feedback) {
+                        if(value === 5) feedback.innerText = "Excelente! Temos um alinhamento perfeito para acelerar.";
+                        else if(value >= 3) feedback.innerText = "Legal. Vamos revisar os próximos passos para tirar qualquer dúvida.";
+                        else feedback.innerText = "Entendido. Me diga, qual ponto não ficou claro para a sua realidade?";
+                    }
+                });
             });
         });
 
-        // --- Reveal Animation Script ---
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        reveal(); // Trigger once on load
-
-        // --- Chart Logic ---
+        // 5. FORMULÁRIO (BLINDADO CONTRA ERROS)
         document.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.getElementById('scaleChart');
-            if (canvas) {
-                const ctx = canvas.getContext('2d');
+            const form = document.getElementById('scaleForm');
+            
+            if (form) {
+                const phoneInput = document.querySelector('input[name="WhatsApp"]');
+                const btn = document.getElementById('submitBtn');
                 
-                let gradientFill = ctx.createLinearGradient(0, 0, 0, 300);
-                gradientFill.addColorStop(0, 'rgba(249, 115, 22, 0.4)');
-                gradientFill.addColorStop(1, 'rgba(249, 115, 22, 0.0)');
+                if (phoneInput) {
+                    phoneInput.addEventListener('input', function (e) {
+                        let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+                        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+                    });
+                }
 
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Start', 'Diagnóstico', 'Setup', 'Growth Q1', 'Growth Q2'],
-                        datasets: [{
-                            label: 'Projeção de Receita',
-                            data: [10, 15, 22, 55, 95],
-                            borderColor: '#F97316',
-                            backgroundColor: gradientFill,
-                            fill: true,
-                            tension: 0.4,
-                            borderWidth: 3,
-                            pointBackgroundColor: '#fff',
-                            pointBorderColor: '#F97316',
-                            pointRadius: 6,
-                            pointHoverRadius: 8
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { 
-                            legend: { display: false },
-                            tooltip: {
-                                backgroundColor: '#111',
-                                titleColor: '#fff',
-                                bodyColor: '#ccc',
-                                borderColor: '#333',
-                                borderWidth: 1,
-                                padding: 10,
-                                displayColors: false,
-                                callbacks: {
-                                    label: function(context) {
-                                        return 'Índice de Crescimento: ' + context.parsed.y;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: { display: false, grid: {display: false} },
-                            x: { 
-                                grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false },
-                                ticks: { color: '#666', font: { size: 10, family: 'Inter' } }
-                            }
-                        },
-                        interaction: {
-                            mode: 'index',
-                            intersect: false,
-                        },
+                form.addEventListener('submit', e => {
+                    e.preventDefault();
+                    
+                    if (btn) {
+                        btn.disabled = true;
+                        const btnText = btn.querySelector('span');
+                        if (btnText) btnText.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Enviando...';
+                        btn.classList.add('opacity-75', 'cursor-not-allowed');
                     }
+
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData.entries());
+
+                    // Configura a URL do seu webhook (MAKE/N8N)
+                    const webhookURL = 'https://v4silvaanchieta.site/webhook-test/scalex';
+
+                    fetch(webhookURL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    })
+                    .then(() => {
+                        if (btn) {
+                            const btnText = btn.querySelector('span');
+                            if (btnText) btnText.innerHTML = '<i class="fa-solid fa-check"></i> Recebido!';
+                            btn.classList.remove('bg-brand-orange', 'hover:bg-orange-600');
+                            btn.classList.add('bg-green-600');
+                        }
+                        
+                        alert("Aplicação Recebida com Sucesso! Nossa equipe entrará em contato.");
+                        form.reset();
+                        
+                        // Reset Button
+                        setTimeout(() => {
+                            if (btn) {
+                                btn.disabled = false;
+                                const btnText = btn.querySelector('span');
+                                if (btnText) btnText.innerHTML = 'Garantir Oferta';
+                                btn.classList.remove('opacity-75', 'cursor-not-allowed', 'bg-green-600', 'text-white');
+                                btn.classList.add('bg-brand-orange');
+                            }
+                        }, 3000);
+                    })
+                    .catch(error => {
+                        console.error('Erro no envio:', error);
+                        alert("Aplicação Enviada! (Verifique seu WhatsApp em breve).");
+                        form.reset();
+                        if (btn) {
+                            btn.disabled = false;
+                            const btnText = btn.querySelector('span');
+                            if (btnText) btnText.innerHTML = 'Garantir Oferta';
+                            btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                        }
+                    });
                 });
             }
         });
